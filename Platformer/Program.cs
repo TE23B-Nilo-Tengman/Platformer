@@ -1,6 +1,7 @@
 ﻿// using System.Drawing;
+global using Raylib_cs;
 using System.Numerics;
-using Raylib_cs;
+
 
 
 Raylib.InitWindow(1200, 900, "yupp");
@@ -10,11 +11,13 @@ Raylib.SetTargetFPS(60);
 
 
 Rectangle dude = new Rectangle(20, 40, 20, 20);
+Rectangle pbox = new Rectangle(100, 100, 1000, 700);
 Rectangle mål;
 mål = new Rectangle(900, 750, 400, 150);
 List<Rectangle> målen = new();
 målen.Add(mål);
 
+// Level båt = new Level();
 
 Rectangle dö;
 dö = new Rectangle(300, 750, 50, 50);
@@ -53,21 +56,19 @@ bool spelar = true;
 
 
 
-while ((Raylib.WindowShouldClose() != true))
+while (Raylib.WindowShouldClose() != true)
 {
-    while (spelar == true) //(Raylib.WindowShouldClose() != true)
+    if (Raylib.IsKeyDown(KeyboardKey.M))
     {
-        // PÅ Å AV
-        if (Raylib.IsKeyPressed(KeyboardKey.E))
-        {
-            // spelar = false;
-            Raylib.WindowShouldClose();
-        }
-        if (Raylib.IsKeyPressed(KeyboardKey.Q))
-        {
-            // spelar = true;
-            
-        }
+        spelar = false;
+    }
+    else
+    {
+        spelar = true;
+    }
+    if (spelar == true)
+    {
+
         // MOVEMENT
         if (Raylib.IsKeyDown(KeyboardKey.D))
         {
@@ -180,7 +181,10 @@ while ((Raylib.WindowShouldClose() != true))
             dude.X = 20;
             dude.Y = 40;
         }
-        // DRAW STUFF
+    }
+    // DRAW STUFF
+    if (spelar == true)
+    {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.White);
 
@@ -196,11 +200,29 @@ while ((Raylib.WindowShouldClose() != true))
 
         Raylib.DrawRectangleRec(mål, Color.Green);
         Raylib.DrawRectangleRec(dude, Color.Yellow);
+        Raylib.DrawText("Meny (hold down: M)", 150, 30, 50, Color.Black);
         Raylib.EndDrawing();
 
         Console.WriteLine($"{velocityY},{velocityX}");
     }
+    // pause
+    else
+    {
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.Gray);
+        Raylib.DrawRectangleRec(pbox, Color.Black);
+        Raylib.DrawText("!Controls!", 120, 120, 50, Color.Pink);
+        Raylib.DrawText("Jump (W)", 120, 170, 50, Color.Pink);
+        Raylib.DrawText("Go left (A)", 120, 220, 50, Color.Pink);
+        Raylib.DrawText("Go right (D)", 120, 270, 50, Color.Pink);
+        Raylib.DrawText("!Tutorial!", 120, 400, 50, Color.Pink);
+        Raylib.DrawText("go green, die pink, gray walls", 120, 430, 50, Color.Pink);
+        Raylib.EndDrawing();
+    }
+
+
 }
+
 
 
 

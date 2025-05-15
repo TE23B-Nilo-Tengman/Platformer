@@ -5,4 +5,3 @@ WALL JUMPS / RIDE
 - gör en check ifall spelaren är brevid en väg
 - ifall checken kolliderar med väggen halvera spelarens -Y velo, och man kan hoppa
 - ifall man hoppar med walljump, ge spelaren en x velo boost i motsatt riktning ifrån väggen plus normala Y hoppet
-
