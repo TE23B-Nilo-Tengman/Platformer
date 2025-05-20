@@ -2,11 +2,13 @@
 global using Raylib_cs;
 using System.Numerics;
 
-
-
 Raylib.InitWindow(1200, 900, "yupp");
-// Raylib.ToggleFullscreen();
-Raylib.SetTargetFPS(60);
+
+int FPS = 0;
+Console.WriteLine("Vad vill du ha din target fps på?");
+String TargetFPS = Console.ReadLine();
+int.TryParse (TargetFPS, out FPS);
+Raylib.SetTargetFPS(FPS);
 
 
 
@@ -17,8 +19,6 @@ mål = new Rectangle(900, 750, 400, 150);
 List<Rectangle> målen = new();
 målen.Add(mål);
 
-// Level båt = new Level();
-
 Rectangle dö;
 dö = new Rectangle(300, 750, 50, 50);
 List<Rectangle> dödare = new();
@@ -26,6 +26,45 @@ dödare.Add(dö);
 dödare.Add(new Rectangle(400, 350, 50, 50));
 dödare.Add(new Rectangle(790, 200, 10, 600));
 dödare.Add(new Rectangle(300, 750, 50, 50));
+
+
+
+
+
+Level banaETT = new Level("lukas", 2,
+new List<Rectangle>
+{
+    new Rectangle(400, 350, 50, 50),
+},
+new List<Rectangle>
+{
+    new Rectangle(400, 350, 50, 50),
+},
+new List<Rectangle>
+{
+    new Rectangle(900, 750, 400, 150)
+});
+
+
+
+
+
+Level banaTVå = new Level("hugo", 2,
+new List<Rectangle>
+{
+    new Rectangle(400, 350, 50, 50),
+},
+new List<Rectangle>
+{
+    new Rectangle(400, 350, 50, 50),
+},
+new List<Rectangle>
+{
+    new Rectangle(900, 750, 400, 150)
+});
+
+
+
 
 
 Rectangle wall;
@@ -53,6 +92,23 @@ bool vinn = false;
 bool spelar = true;
 
 
+// Kollar ifall spelaren nuddar en väg, och puttar spelaren ifrån väggen.
+void wallcheck(KeyboardKey movementKey, float directionMultiplier)
+{
+    if (Raylib.IsKeyDown(movementKey))
+    {
+        dude.X += 10 * directionMultiplier;
+
+        foreach (Rectangle w in walls)
+        {
+            if (Raylib.CheckCollisionRecs(w, dude))
+            {
+                dude.X -= 10 * directionMultiplier;
+                break;
+            }
+        }
+    }
+}
 
 
 
@@ -70,7 +126,9 @@ while (Raylib.WindowShouldClose() != true)
     {
 
         // MOVEMENT
-        if (Raylib.IsKeyDown(KeyboardKey.D))
+
+        // gammal kod, kankske båt
+        /*if (Raylib.IsKeyDown(KeyboardKey.D))
         {
             dude.X += 10;
 
@@ -95,8 +153,14 @@ while (Raylib.WindowShouldClose() != true)
                     break;
                 }
             }
-        }
+        }*/
+        wallcheck(KeyboardKey.D, 1);
+        wallcheck(KeyboardKey.A, -1);
+
+
+
         // JUMP
+
         if (Raylib.IsKeyPressed(KeyboardKey.W) && velocityY == 0)
         {
             velocityY = -20;

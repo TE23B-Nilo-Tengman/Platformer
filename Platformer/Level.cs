@@ -1,13 +1,18 @@
-﻿// class Level
-// {
+﻿class Level
+{
+    string name = "";
+    int levelNummer;
+    public List<Rectangle> dödare = new();
+    public List<Rectangle> walls = new();
+    public List<Rectangle> målen = new();
 
-//     int levelNummer;
-//     List<Rectangle> dödare = new();
-//     List<Rectangle> walls = new();
 
-//     public Level(int levelNummer, List<Rectangle> dödare,List<Rectangle> walls)
-//     {
-//         this.levelNummer = levelNummer;
-//         this.dödare = 
-//     }
-// }
+    public Level(string name, int levelNummer, List<Rectangle> dödare, List<Rectangle> walls, List<Rectangle> målen)
+    {
+        this.name = name;
+        this.levelNummer = levelNummer;
+        this.dödare = dödare;
+        this.walls = walls;
+        this.målen = målen;
+    }
+}
